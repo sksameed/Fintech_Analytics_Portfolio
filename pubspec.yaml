@@ -1,0 +1,31 @@
+name: cred_lite
+description: "CredLite - Credit card bill and rewards tracker portfolio project."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.3.0
+  flutter: ">=3.19.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  provider: ^6.1.5+1
+  dio: ^5.11.1
+  hive_ce: ^2.20.1
+  hive_ce_flutter: ^2.4.0
+  fl_chart: ^1.2.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/fonts/
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-Regular.ttf
