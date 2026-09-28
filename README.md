@@ -1,8 +1,8 @@
-# CredLite
+# Fintech Analytics Portfolio 📊
 
-CredLite is a Flutter-based credit card bill and rewards tracking application developed as a portfolio project for a Flutter internship application at CRED.
+A comprehensive financial analytics application built with Flutter, showcasing modern mobile app development practices. Designed as a portfolio project for engineering interviews, this application demonstrates expertise in REST APIs, offline storage, state management, animations, and performance optimization.
 
-The project focuses on clean architecture, readable code, responsive UI, and practical Flutter engineering. It demonstrates API integration, offline storage, state management, animations, custom rendering, background processing, and performance optimization without unnecessary architectural complexity.
+The core focus of this project is **simplicity, readability, and clean architecture**. Every component avoids over-engineering while maintaining professional engineering standards.
 
 ---
 
@@ -99,7 +99,7 @@ Then use Flutter DevTools to inspect application performance:
 ## Project Structure
 
 ```text
-CredLite/
+fintech-analytics-portfolio/
 |
 ├── lib/
 │   ├── models/
@@ -135,8 +135,8 @@ The following tools are required:
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/credLite.git
-cd credLite
+git clone https://github.com/sksameed/Fintech_Analytics_Portfolio.git
+cd Fintech_Analytics_Portfolio
 ```
 
 ### Start the Mock Server
@@ -204,7 +204,7 @@ The application currently supports Indian Rupees (`₹`) as the primary currency
 
 ## Project Objective
 
-CredLite was developed to demonstrate practical Flutter engineering beyond UI implementation.
+This portfolio project demonstrates practical mobile engineering beyond UI implementation.
 
 The project combines:
 
