@@ -1,62 +1,170 @@
-# CredLite 💳
+# CredLite
 
-**CredLite** is a credit-card bill and rewards tracker built as a portfolio project for a Flutter internship application at **CRED**.
+CredLite is a Flutter-based credit card bill and rewards tracking application developed as a portfolio project for a Flutter internship application at CRED.
 
-The core focus of this project is **simplicity, readability, and neat organization**. Designed for a student preparing for engineering interviews, every component avoids over-engineering, code generation, and complex dependency injection while delivering a smooth, high-fidelity dark neumorphic experience.
+The project focuses on clean architecture, readable code, responsive UI, and practical Flutter engineering. It demonstrates API integration, offline storage, state management, animations, custom rendering, background processing, and performance optimization without unnecessary architectural complexity.
 
 ---
 
 ## Features
 
-- **Credit Card Carousel**: Horizontal paging of credit cards with a smooth 180° 3D flip animation revealing card limits and due dates.
-- **Live Bill Countdown**: Real-time ticker counting down to bill due dates using `Timer.periodic`, paired with a haptic "Pay now" action.
-- **Offline-First Transactions**: Instant loading from local Hive storage, pull-to-refresh, live search, and category filter chips across 5,000 transactions.
-- **Spend Analytics**: Monthly bar charts and category distribution pie charts powered by `fl_chart`.
-- **Background Isolate Benchmark**: Offloads spend aggregation to worker isolates via `Isolate.run` and provides a live stopwatch benchmark against the main thread.
-- **Scratch-to-Reveal Rewards**: Interactive voucher cards using `CustomPainter` with `saveLayer` and `BlendMode.clear`, permanently saved in Hive once revealed.
+* **Credit Card Carousel**
+  Horizontal card navigation with a smooth 3D flip animation displaying credit limits and upcoming bill due dates.
+
+* **Live Bill Countdown**
+  Real-time countdown to upcoming bill due dates using `Timer.periodic`, along with a haptic-enabled Pay Now interaction.
+
+* **Offline-First Transactions**
+  Transactions are loaded instantly from local Hive storage, with pull-to-refresh, live search, and category-based filtering across 5,000+ transactions.
+
+* **Spend Analytics**
+  Monthly spending bar charts and category-wise distribution charts implemented using `fl_chart`.
+
+* **Background Isolate Processing**
+  Spend aggregation is performed using `Isolate.run`, with a stopwatch benchmark comparing background and main-thread execution.
+
+* **Scratch-to-Reveal Rewards**
+  Interactive scratch cards implemented using `CustomPainter`, `saveLayer`, and `BlendMode.clear`. Revealed rewards are persisted locally using Hive.
 
 ---
 
-## Skills Matrix
+## Technology Stack
 
-| Feature | Engineering Skill Demonstrated | Key Implementation |
-|---|---|---|
-| **Data Sync** | REST API & Networking | `Dio` client with timeouts, queries, and clean error handling in `api_service.dart`. |
-| **Offline Cache** | Local NoSQL Storage | `hive_ce` storing raw JSON strings (zero code-gen or adapters) in `local_store.dart`. |
-| **Heavy Processing**| Multi-Threading & Isolates | Background computation via `Isolate.run` and `Stopwatch` in `analytics.dart`. |
-| **Interactive UI** | Custom Canvas & Shaders | `CustomPainter` with `saveLayer` and `BlendMode.clear` in `scratch_card.dart`. |
-| **Animations** | Explicit Animation & 3D Math | `AnimationController` and `Matrix4` 3D perspective rotation in `credit_card_widget.dart`. |
-| **State Management**| Clean Reactive Architecture | Native `ChangeNotifier` + `Provider` cache-first flow in `app_state.dart`. |
-
----
-
-## Performance & DevTools Verification
-
-### Optimizations Applied
-1. **Isolated Repaints**: `RepaintBoundary` wraps both the credit card carousel and scratch canvas to eliminate repaint cascades.
-2. **Main-Thread Offloading**: Spend aggregation across 5,000 records runs in a worker isolate via `Isolate.run`, ensuring zero dropped frames.
-3. **Efficient List Rendering**: `ListView.builder` recycles transaction rows on demand.
-4. **Const Constructors**: Maximize element tree reuse and minimize dirty widget rebuilds.
-
-### How to Verify in Flutter DevTools
-1. Run the app in Profile mode: `flutter run --profile`.
-2. Open DevTools from your terminal or IDE.
-3. Navigate to the **Performance** tab and enable **Highlight Repaints**. Notice only the active card or scratch tile repaints during interactions.
-4. Open the **CPU Profiler** tab during aggregation to observe work executing on the background isolate rather than the UI thread.
+| Technology    | Purpose                          |
+| ------------- | -------------------------------- |
+| Flutter       | Mobile application development   |
+| Dart          | Application programming language |
+| Provider      | State management                 |
+| Hive CE       | Local and offline data storage   |
+| Dio           | REST API communication           |
+| fl_chart      | Data visualization               |
+| CustomPainter | Custom UI rendering              |
+| Isolate.run   | Background computation           |
+| Node.js       | Mock API server                  |
 
 ---
 
-## Setup & Running
+## Engineering Skills Demonstrated
 
-### 1. Start the Mock Server
+| Feature          | Engineering Skill       | Implementation                                                    |
+| ---------------- | ----------------------- | ----------------------------------------------------------------- |
+| Data Sync        | REST API and Networking | `Dio` with request timeouts, query parameters, and error handling |
+| Offline Cache    | Local NoSQL Storage     | `hive_ce` with raw JSON persistence                               |
+| Heavy Processing | Multithreading          | `Isolate.run` for background calculations                         |
+| Interactive UI   | Custom Rendering        | `CustomPainter`, `saveLayer`, and `BlendMode.clear`               |
+| Animations       | 3D UI and Animation     | `AnimationController` and `Matrix4`                               |
+| State Management | Reactive Architecture   | `ChangeNotifier` and `Provider`                                   |
+
+---
+
+## Performance Optimizations
+
+### Isolated Repaints
+
+`RepaintBoundary` is used around the credit card carousel and scratch-card canvas to prevent unnecessary repaint cascades.
+
+### Background Processing
+
+Spend aggregation across 5,000 transactions is moved to a worker isolate using `Isolate.run`, keeping computationally intensive operations away from the UI thread.
+
+### Efficient List Rendering
+
+`ListView.builder` is used to create transaction rows on demand, reducing unnecessary widget creation.
+
+### Const Constructors
+
+`const` constructors are used wherever applicable to improve widget reuse and minimize unnecessary rebuilds.
+
+---
+
+## Flutter DevTools Verification
+
+Run the application in Profile mode:
+
+```bash
+flutter run --profile
+```
+
+Then use Flutter DevTools to inspect application performance:
+
+1. Open the **Performance** tab.
+2. Enable **Highlight Repaints**.
+3. Interact with the credit card carousel and scratch cards.
+4. Observe repaint activity during interactions.
+5. Open the **CPU Profiler** while running the analytics benchmark.
+6. Inspect background isolate activity and processing time.
+
+---
+
+## Project Structure
+
+```text
+CredLite/
+|
+├── lib/
+│   ├── models/
+│   ├── services/
+│   ├── widgets/
+│   ├── screens/
+│   ├── analytics.dart
+│   ├── app_state.dart
+│   └── main.dart
+│
+├── mock_server/
+│   ├── server.js
+│   └── package.json
+│
+├── assets/
+│
+├── pubspec.yaml
+└── README.md
+```
+
+---
+
+## Setup and Installation
+
+### Prerequisites
+
+The following tools are required:
+
+* Flutter
+* Dart
+* Node.js
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/YOUR_USERNAME/credLite.git
+cd credLite
+```
+
+### Start the Mock Server
+
+Navigate to the mock server directory:
+
 ```bash
 cd mock_server
 npm install
 node server.js
-# Runs on http://localhost:3000 (maps to http://10.0.2.2:3000 in Android emulator)
 ```
 
-### 2. Run the Flutter App
+The mock server runs on:
+
+```text
+http://localhost:3000
+```
+
+For an Android emulator, use:
+
+```text
+http://10.0.2.2:3000
+```
+
+### Run the Flutter Application
+
+From the project root:
+
 ```bash
 flutter pub get
 flutter run
@@ -66,14 +174,63 @@ flutter run
 
 ## Screenshots
 
-| Card Carousel & Bill Due | Search & Filter Transactions | Spend Analytics & Benchmark | Scratch Card Perks |
-|:---:|:---:|:---:|:---:|
-| *(Screenshot Placeholder 1)* | *(Screenshot Placeholder 2)* | *(Screenshot Placeholder 3)* | *(Screenshot Placeholder 4)* |
+| Credit Card Carousel |  Transactions  |
+| :------------------: | :------------: |
+|    Add Screenshot    | Add Screenshot |
+
+| Spend Analytics | Scratch Card Rewards |
+| :-------------: | :------------------: |
+|  Add Screenshot |    Add Screenshot    |
+
+Replace the placeholders with screenshots of the application.
 
 ---
 
-## Honest Known Limitations
+## Known Limitations
 
-1. **JSON String Serialization**: Data is persisted in Hive as raw JSON strings rather than binary type adapters to keep code simple and readable without `build_runner`.
-2. **Mock Server In-Memory State**: Changes made to scratched rewards on the mock server reset when the Node process restarts.
-3. **Single Currency**: Currency formatting is currently tailored strictly for Indian Rupees (₹).
+### JSON-Based Hive Storage
+
+Data is stored as raw JSON strings instead of binary Hive adapters. This keeps the implementation straightforward and avoids additional code generation through `build_runner`.
+
+### In-Memory Mock Server
+
+Changes made to rewards on the mock server are temporary and are lost when the Node.js server is restarted.
+
+### Single Currency Support
+
+The application currently supports Indian Rupees (`₹`) as the primary currency.
+
+---
+
+## Project Objective
+
+CredLite was developed to demonstrate practical Flutter engineering beyond UI implementation.
+
+The project combines:
+
+* REST API integration
+* Offline-first data management
+* Local persistence
+* State management
+* 3D animations
+* Custom rendering
+* Background isolates
+* Performance optimization
+* Flutter DevTools profiling
+
+The implementation prioritizes simplicity, readability, maintainability, and practical engineering principles while avoiding unnecessary architectural complexity.
+
+---
+
+## Author
+
+**Shaik Sameed**
+
+* GitHub: [github.com/sksameed](https://github.com/sksameed)
+* LinkedIn: [linkedin.com/in/sk-sameed-0909s](https://linkedin.com/in/sk-sameed-0909s)
+
+---
+
+## License
+
+This project was created for educational and portfolio purposes.
